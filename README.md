@@ -12,15 +12,15 @@
 
 在 Trae 里直接说：
 
-> 安装技能：https://github.com/<用户名>/trae-skills/tree/main/trademark-pass-rate
+> 安装技能：https://github.com/LinYunar/trae-skills/tree/main/trademark-pass-rate
 
-或者手动安装：把 `trademark-pass-rate` 整个文件夹复制到
+装完重启 Trae 生效。仓库是公开的，不需要账号或 token。
+
+也可以手动安装：把 `trademark-pass-rate` 整个文件夹复制到
 
 ```
 C:\Users\<你的用户名>\.trae-cn\skills\
 ```
-
-重启 Trae 后生效。
 
 ## 使用
 
