@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商标注册通过率评估 · {{MARK_NAME}}</title>
+<style>
+:root{
+  --ink:#121a24;--ink-2:#3a4757;--ink-3:#7e8998;
+  --line:#e3e7ec;--line-2:#eef1f4;--accent:#17324d;
+  --risk:#a83a2c;--risk-bg:#fdf4f2;
+  --warn:#8f6614;--warn-bg:#fcf7ec;
+  --safe:#2d6a4f;--safe-bg:#f0f7f3;--card:#fafbfc;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:"MiSans","HarmonyOS Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:#e9ecef;color:var(--ink);font-size:15px;line-height:1.72;padding:34px 16px 58px;
+  background-image:radial-gradient(circle at 15% 0%,rgba(23,50,77,.07),transparent 60%),
+    repeating-linear-gradient(45deg,rgba(0,0,0,.015) 0 1px,transparent 1px 6px)}
+.page{width:210mm;min-height:297mm;margin:0 auto;background:#fff;padding:0 0 20mm;
+  position:relative;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.05),0 18px 44px rgba(16,32,48,.10)}
+.page::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;
+  background:linear-gradient(90deg,#17324d 0%,#2f5f85 30%,#9c4436 52%,#c6b393 72%,#e9ecef 100%)}
+.wrap{padding:15mm 14mm 0}
+.head{display:flex;justify-content:space-between;align-items:flex-start;
+  padding-bottom:15px;border-bottom:1px solid var(--line)}
+.brand{font-size:10.5px;letter-spacing:.24em;color:var(--ink-3);margin-bottom:11px;font-weight:500}
+h1{font-size:31px;font-weight:700;line-height:1.22;letter-spacing:-.022em}
+.subject{font-size:14px;color:var(--ink-2);margin-top:9px;font-weight:500;letter-spacing:.01em}
+.subject em{font-style:normal;color:var(--ink-3);margin:0 7px;font-weight:400}
+.meta{text-align:right;font-size:11px;color:var(--ink-3);line-height:2;white-space:nowrap;padding-top:2px}
+.meta b{color:var(--ink-2);font-weight:600}
+.sec-head{display:flex;align-items:baseline;gap:10px;margin:15px 0 8px}
+.sec-num{font-size:10px;letter-spacing:.14em;color:var(--ink-3);font-weight:600;
+  font-variant-numeric:tabular-nums;padding-top:1px}
+h2{font-size:16px;font-weight:700;letter-spacing:.01em;color:var(--ink)}
+.sec-line{flex:1;height:1px;background:var(--line);margin-left:4px;position:relative;top:-2px}
+.lead{font-size:13px;color:var(--ink-2);line-height:1.68;margin-bottom:9px}
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.vc{position:relative;padding:12px 15px;background:var(--card);
+  border:1px solid var(--line);border-top:2.5px solid var(--ink-3)}
+.vc .vt{font-size:10.5px;letter-spacing:.09em;color:var(--ink-3);margin-bottom:3px;font-weight:500}
+.vc .vn{font-size:36px;font-weight:750;line-height:1.15;font-variant-numeric:tabular-nums;
+  letter-spacing:-.025em;margin-bottom:11px}
+.vc .vd{font-size:11.5px;color:var(--ink-2);line-height:1.62}
+.vc.r{border-top-color:var(--risk);background:var(--risk-bg)}
+.vc.r .vn{color:var(--risk)}
+.vc.g{border-top-color:var(--safe);background:var(--safe-bg)}
+.vc.g .vn{color:var(--safe)}
+.meter{margin-bottom:8px}
+.track{position:relative;height:6px;background:#e2e6ea}
+.track .fill{position:absolute;top:0;bottom:0;left:0;min-width:4px;
+  background:linear-gradient(90deg,#c2543f,var(--risk))}
+.track .range{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,#3d825f,var(--safe))}
+.track .pin{position:absolute;top:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;
+  border-radius:50%;background:#fff;border:1.5px solid var(--ink-3);box-shadow:0 0 0 1px rgba(255,255,255,.9)}
+.track .pin.r{border-color:var(--risk)}
+.track .pin.g{border-color:#14503a}
+.scale{display:flex;justify-content:space-between;font-size:8.5px;color:#a7b0bb;
+  margin-top:4px;font-variant-numeric:tabular-nums;letter-spacing:.03em}
+.note{font-size:10.5px;color:var(--ink-3);line-height:1.62;margin-top:6px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin:0}
+th{font-weight:600;text-align:left;padding:6px 9px;color:var(--ink-3);
+  font-size:10.5px;letter-spacing:.06em;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:6px 9px;border-bottom:1px solid var(--line-2);vertical-align:top;line-height:1.55;color:var(--ink-2)}
+tbody tr:last-child td{border-bottom:1px solid var(--line)}
+tbody tr td:first-child{border-left:2.5px solid transparent;padding-left:10px}
+tr.lv-a td:first-child{border-left-color:var(--risk)}
+tr.lv-c td:first-child{border-left-color:#c08a2e}
+td strong{color:var(--ink);font-weight:650}
+.tag{display:inline-block;padding:0 6px;border-radius:1px;font-size:10px;
+  line-height:1.75;white-space:nowrap;font-weight:600;letter-spacing:.02em}
+.t-reg{background:var(--safe-bg);color:var(--safe)}
+.t-pend{background:#eef3f9;color:#1f4a7d}
+.t-high{background:var(--risk-bg);color:var(--risk)}
+.t-mid{background:var(--warn-bg);color:var(--warn)}
+.t-low{background:var(--safe-bg);color:var(--safe)}
+.grid2{display:grid;grid-template-columns:1.08fr 1fr;gap:10px}
+.box{background:var(--card);border:1px solid var(--line);padding:12px 14px 11px}
+.box .bt{font-size:10.5px;letter-spacing:.09em;color:var(--ink-3);
+  margin-bottom:8px;font-weight:600;display:flex;align-items:center;gap:7px}
+.box .bt::before{content:"";width:3px;height:3px;background:var(--accent);display:block}
+.box ul{margin:0 0 0 15px}
+.box li{font-size:11.5px;line-height:1.72;margin-bottom:5px;color:var(--ink-2)}
+.box li:last-child{margin-bottom:0}
+.box li::marker{color:#b8c1cb}
+.box li strong{color:var(--ink);font-weight:650}
+.actions{width:100%;border-collapse:collapse}
+.actions td{padding:8px 9px}
+.act-no{width:26px;height:26px;border:1px solid var(--line);display:inline-flex;
+  align-items:center;justify-content:center;font-size:11px;font-weight:700;
+  color:var(--accent);font-variant-numeric:tabular-nums;background:#fff}
+.act-name{color:var(--ink);font-weight:600}
+.footer{position:absolute;left:14mm;right:14mm;bottom:9mm;
+  border-top:1px solid var(--line);padding-top:8px}
+.fb{font-size:9.5px;color:var(--ink-3);line-height:1.6;margin-bottom:6px}
+.fr{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--ink-3)}
+.fr .fl{letter-spacing:.04em}
+.fr .frn{font-variant-numeric:tabular-nums;letter-spacing:.08em}
+@page{size:A4;margin:0}
+@media print{
+  body{background:#fff;padding:0;font-size:13px;line-height:1.58}
+  .page{width:210mm;min-height:297mm;margin:0;box-shadow:none;padding:0 0 19mm}
+  .verdict,.grid2{grid-template-columns:1fr 1fr !important}
+  h1{font-size:29px}
+  table{font-size:11.5px}
+  th,td{padding:5px 8px}
+  .sec-head{margin:16px 0 7px}
+}
+@media (max-width:700px){
+  .page{width:100%}
+  .wrap{padding:22px 18px 0}
+  .verdict,.grid2{grid-template-columns:1fr}
+  .head{flex-direction:column;gap:10px}
+  .meta{text-align:left;padding-top:0}
+}
+</style>
+</head>
+<body>
+<section class="page">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <div class="brand">商标近似检索　·　通过率评估</div>
+        <h1>商标注册通过率评估</h1>
+        <div class="subject">{{MARK_NAME}}<em>·</em>第 {{CLASS_ID}} 类<em>·</em>{{MARK_TYPE}}</div>
+      </div>
+      <div class="meta">
+        评估编号　<b>{{REPORT_NO}}</b><br>
+        检索日期　{{DATE}}<br>
+        数据来源　OA-MCP 商标基础索引
+      </div>
+    </div>
+
+    <div class="sec-head">
+      <span class="sec-num">01</span><h2>评估结论</h2><span class="sec-line"></span>
+    </div>
+    <p class="lead">{{VERDICT_LEAD}}</p>
+
+    <div class="verdict">
+      <div class="vc r">
+        <div class="vt">情形 A · 非关联主体新申请</div>
+        <div class="vn">{{RATE_A}}</div>
+        <div class="meter">
+          <div class="track">
+            <div class="fill" style="width:{{RATE_A_PCT}}%"></div>
+            <div class="pin r" style="left:{{RATE_A_PCT}}%"></div>
+          </div>
+          <div class="scale"><span>0</span><span>100%</span></div>
+        </div>
+        <div class="vd">{{VERDICT_A_TEXT}}</div>
+      </div>
+      <div class="vc g">
+        <div class="vt">情形 B · 关联主体补充申请</div>
+        <div class="vn">{{RATE_B}}</div>
+        <div class="meter">
+          <div class="track">
+            <div class="range" style="left:{{RATE_B_MIN}}%;width:{{RATE_B_WIDTH}}%"></div>
+            <div class="pin g" style="left:{{RATE_B_MID}}%"></div>
+          </div>
+          <div class="scale"><span>0</span><span>100%</span></div>
+        </div>
+        <div class="vd">{{VERDICT_B_TEXT}}</div>
+      </div>
+    </div>
+    <div class="note">{{RATE_NOTE}}</div>
+
+    <div class="sec-head">
+      <span class="sec-num">02</span><h2>关键障碍</h2><span class="sec-line"></span>
+    </div>
+    <table>
+      <thead>
+        <tr><th style="width:72px">层级</th><th style="width:118px">商标名称</th><th style="width:62px">状态</th><th style="width:112px">权利人</th><th>对通过率的影响</th></tr>
+      </thead>
+      <tbody>
+{{BARRIER_ROWS}}
+      </tbody>
+    </table>
+    <div class="note">{{BARRIER_NOTE}}</div>
+
+    <div class="sec-head">
+      <span class="sec-num">03</span><h2>评估依据</h2><span class="sec-line"></span>
+    </div>
+    <div class="grid2">
+      <div class="box">
+        <div class="bt">权重排序</div>
+        <ul>
+{{WEIGHT_ITEMS}}
+        </ul>
+      </div>
+      <div class="box">
+        <div class="bt">校准参照</div>
+        <ul>
+{{CALIB_ITEMS}}
+        </ul>
+      </div>
+    </div>
+
+    <div class="sec-head">
+      <span class="sec-num">04</span><h2>建议动作</h2><span class="sec-line"></span>
+    </div>
+    <table class="actions">
+      <thead>
+        <tr><th style="width:34px">序</th><th style="width:27%">动作</th><th>说明</th></tr>
+      </thead>
+      <tbody>
+{{ACTION_ROWS}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    <div class="fb">{{BOUNDARY}}</div>
+    <div class="fr">
+      <span class="fl">{{FOOTER_TITLE}}</span>
+      <span class="frn">{{REPORT_NO}}</span>
+    </div>
+  </div>
+</section>
+</body>
+</html>
